@@ -22,13 +22,35 @@ async def chat_endpoint(request: Request):
         logger.warning(f"⚠️ Error obteniendo productos: {e}")
         products = []
 
-    logger.info(f"📨 Mensaje recibido del cliente {customer_email}: {message}")
     result = await openai_service.chat_with_agent(message, products, customer_email)
 
-    logger.info(f"🤖 Respuesta generada por IA: {result}")
+    # Manejar tanto string como dict
+    if isinstance(result, str):
+        response_text = result
+        logger.info(f"🤖 Respuesta generada por IA: {response_text}")
+    elif isinstance(result, dict):
+        response_text = result.get("response", "")
+        logger.info(f"🤖 Respuesta generada por IA: {response_text}")
+        
+        # Log adicional del análisis
+        if result.get("products_mentioned"):
+            logger.info(f"🛍️ Productos detectados: {result.get('products_mentioned')}")
+        if result.get("colors_mentioned"):
+            logger.info(f"🎨 Colores detectados: {result.get('colors_mentioned')}")
+        if result.get("sizes_mentioned"):
+            logger.info(f"📏 Tallas detectadas: {result.get('sizes_mentioned')}")
+        logger.info(f"🎯 Intención: {result.get('intent')} (confianza: {result.get('confidence', 0):.2f})")
+    else:
+        response_text = "Error en procesamiento"
+        logger.error(f"❌ Tipo de resultado no esperado: {type(result)}")
 
-    airtable_service.register_interaction(customer_email, message, result)
+    # Registrar interacción
+    try:
+        airtable_service.register_interaction(customer_email, message, result)
+    except Exception as e:
+        logger.error(f"❌ Error registrando interacción: {e}")
+        # Continuar con la respuesta aunque falle el registro
 
     return {
-    "reply": result
+        "reply": result
     }
