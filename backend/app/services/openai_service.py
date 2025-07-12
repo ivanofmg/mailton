@@ -28,12 +28,12 @@ CATALOGO_COLORES = {
 }
 
 IMAGENES_MODELOS = {
-    "ANDORRA": "https://drive.google.com/uc?export=view&id=1OXHBUBhJ0xKzW2HrSGSAInEoKhHB7j26",
-    "BARBUDA": "https://drive.google.com/uc?export=view&id=1fr0YF_7oojFfkjrXVZjAPhMYhE_zKbd1",
-    "BORA": "https://drive.google.com/uc?export=view&id=1UgaOaDGcoHjYs5vtLZSEeZFZZOC3TL7P",
-    "HOBART": "https://drive.google.com/uc?export=view&id=149-RnL46jZrLoM1jwssO0IM5jv_BLHzE",
-    "MILAN": "https://drive.google.com/uc?export=view&id=1yzs5CBuY5UXJ0j5_jBIOyEFIYXvATggA",
-    "SANTORY": "https://drive.google.com/uc?export=view&id=1yp5tnju5g9tN92Mlq2ri1bcNmnOiSuRR"
+    "ANDORRA": "https://i.imgur.com/S9ctWUN.png",
+    "BARBUDA": "https://i.imgur.com/vnBqZoq.png",
+    "BORA": "https://i.imgur.com/odVNk55.png",
+    "HOBART": "https://i.imgur.com/whDv56s.png",
+    "MILAN": "https://i.imgur.com/4rmEV98.png",
+    "SANTORY": "https://i.imgur.com/Sdg0JZU.png"
 }
 
 TALLAS_DISPONIBLES = ["35", "36", "37", "38", "39", "40", "41", "42", "43", "44"]
@@ -133,9 +133,9 @@ Cuando pregunten por opciones de pago o crédito, SIEMPRE menciona TODAS las opc
 - Pagos de contado
 
 🖼️ Imágenes:
-- Cuando confirmes modelo, talla y color, o cuando el cliente solicite ver una imagen, muestra la imagen del modelo
-- Usa este formato: ![Modelo NOMBRE](URL_IMAGEN)
-- Ejemplo: ![Modelo BARBUDA](https://drive.google.com/uc?export=view&id=1fr0YF_7oojFfkjrXVZjAPhMYhE_zKbd1)
+- Cuando confirmes modelo, talla y color, o cuando el cliente solicite ver una imagen, envía SOLO la URL directa de la imagen
+- NO uses formato markdown ![Modelo NOMBRE](URL)
+- Envía la imagen así: "Aquí tienes el modelo BARBUDA: https://i.imgur.com/vnBqZoq.png"
 - SIEMPRE muestra la imagen cuando el cliente haga el pedido final o solicite ver el producto
 
 🔄 Flujo ideal:

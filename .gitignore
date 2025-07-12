@@ -1,0 +1,28 @@
+# Generamos el archivo .gitignore recomendado para el proyecto en /opt/mailton
+
+gitignore_content = """# Ignorar entornos virtuales de Python
+backend/venv/
+
+# Ignorar node_modules de WhatsApp Gateway
+whatsapp/node_modules/
+
+# Ignorar variables de entorno
+*.env
+
+# Ignorar archivos de logs
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Archivos de autenticación de WhatsApp
+whatsapp/.wwebjs_auth/
+whatsapp/.wwebjs_cache/
+"""
+
+# Guardamos el archivo
+gitignore_path = Path("/mnt/data/.gitignore")
+gitignore_path.write_text(gitignore_content)
+
+gitignore_path.name
