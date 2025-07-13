@@ -3,6 +3,13 @@
 # Ubicación: /opt/mailton/scripts/auto_backup.sh
 # Versión mejorada que incluye todo el proyecto
 
+# Configurar entorno para cron
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export HOME="/home/secureadmin"
+
+# Configurar Git para usar credenciales correctas
+export GIT_CONFIG_GLOBAL="$HOME/.gitconfig"
+
 DATE=$(date +%Y%m%d_%H%M%S)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"  # /opt/mailton
@@ -11,6 +18,7 @@ BACKUP_DIR="$PROJECT_DIR/backups"
 echo "🔄 Iniciando backup automático completo: $DATE"
 echo "📁 Proyecto: $PROJECT_DIR"
 echo "📄 Script: $SCRIPT_DIR/$(basename "$0")"
+echo "🏠 HOME: $HOME"
 
 # Verificar que estamos en el directorio correcto
 if [ ! -d "$PROJECT_DIR" ]; then
@@ -72,6 +80,7 @@ echo "📝 Verificando cambios para Git..."
 # Verificar si estamos en un repo git
 if [ -d ".git" ]; then
     BRANCH=$(git branch --show-current 2>/dev/null || echo "main")
+    echo "📝 Branch actual: $BRANCH"
     
     # Verificar cambios
     if ! git diff --quiet || ! git diff --cached --quiet; then
@@ -84,7 +93,7 @@ if [ -d ".git" ]; then
 - Estado del sistema al: $(date)
 - Branch: $BRANCH"
         
-        # Push con manejo de errores
+        # Push al branch actual (development o el que sea)
         if git push origin $BRANCH 2>/dev/null; then
             echo "✅ Backup git completado: push a $BRANCH"
         else
